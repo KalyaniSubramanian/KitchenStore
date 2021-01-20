@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .cart-table {
+            width: 100%;
+            background-color: palegreen;
+        }
+
+        .parallax {
+            background-image: url('image/Background.jpg');
+            height: max-content;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .page-title {
+            background: rgba(0,0,0,0);
+            text-align: center;
+            color: white;
+            padding: 50px;
+            font-variant: small-caps;
+            font-size: 100px;
+            font-family: fantasy;
+            letter-spacing: 20px;
+        }
+        .cart-table {
+            text-align: center;
+            height: 50px;
+            border: 1px solid black;
+            width: 100%;
+        }
+        .span{
+            color:black;
+        }
+        .a{
+            padding:200px;
+            text-align:center;
+        }
+        .b {
+            padding: 200px;
+            text-align:center;
+        }
+        .c {
+            padding-left: 180px;
+            text-align: center;
+        }
+        .total{
+            float:right;
+            padding-right:200px;
+        }
+        .placebutton {
+            padding-right: 100px;
+        }
+        .button {
+            font-size: 20px;
+            transition-duration: 0.4s;
+            float:right;
+        }
+
+            .button:hover {
+                background-color: white;
+            }
+    </style>
+    <meta charset="utf-8" />
+    <title></title>
+    <script>
+        //function display() {
+        //    for (var i = 1; i <= 3; i++) {
+        //        if (sessionStorage.getItem(' + i + '))
+        //            console.log(i);
+        //    }
+        //}
+
+        function Loadinformation() {
+
+            var olddata = sessionStorage.getItem("Cartdetails");
+            addTable(olddata);
+            document.getElementById('lblCartDetails').innerHTML = olddata;
+
+            //var rows = olddata.split(';');
+            //for (var i = 1; i <= 3; i++) {
+            //    var columns = rows[i].split('~');
+            //    var soupname = columns[0];
+            //    var grams = columns[1];
+
+
+            //    addRow(soupname, grams, 30)
+            //}
+
+        }
+
+        function addRow(grocery, Grams, Price) {
+
+
+
+            var rowCount = table.rows.length;
+            var row = table.insertRow(rowCount);
+
+            row.insertCell(0).innerHTML = grocery;
+            row.insertCell(1).innerHTML = Grams;
+            row.insertCell(2).innerHTML = Price;
+
+        }
+
+        //function deleteRow(obj) {
+
+        //    var index = obj.parentNode.parentNode.rowIndex;
+        //    var table = document.getElementById("myTableData");
+        //    table.deleteRow(index);
+
+        //}
+
+        function addTable(olddata) {
+
+            var myTableDiv = document.getElementById("myDynamicTable");
+
+            var table = document.createElement('TABLE');
+            table.border = '1';
+            table.className = "cart-table";
+
+            var tableBody = document.createElement('TBODY');
+            table.appendChild(tableBody);
+
+            var rows = olddata.split(';');
+
+
+
+            for (var i = 0; i < rows.length; i++) {
+                var tr = document.createElement('TR');
+                tableBody.appendChild(tr);
+
+                var columns = rows[i].split('~');
+                var soupname = columns[0];
+                var grams = columns[1];
+                var price = columns[2];
+
+
+                for (var j = 0; j < 3; j++) {
+                    var td = document.createElement('TD');
+                    td.width = '75';
+                    td.appendChild(document.createTextNode(columns[j]));
+                    tr.appendChild(td);
+                }
+            }
+
+            myTableDiv.appendChild(table);
+
+        }
+
+    </script>
+
+</head>
+<body onload="javascript:Loadinformation();">
+    <div class="parallax">
+        <div class="page-title">
+            <b>Cart Summary</b>
+        </div>
+    </div>
+    <span class="a"><b>Item</b></span>
+    <span class="b"><b>Quantity</b></span>
+    <span class="c"><b>Price(₹)</b></span>
+
+    <div id="myDynamicTable"> </div>
+    <br />
+    <div class="total"><b>Total: &nbsp; &nbsp;</b></div><br/><br/><br/>
+    <div class="placebutton"><a href="OrderSummary.html"><input type="submit" class="button" value="Place Order" /></a></div>
+</body>
+</html>
